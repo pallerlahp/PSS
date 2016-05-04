@@ -1,0 +1,137 @@
+﻿@model PSS.Models.ExternalLoginConfirmationViewModel
+@{
+    ViewBag.Title = "Register";
+    bool isRegisterd = Model.isRegisterd;
+    Session["user_id"] = Model.user_id;
+    Session["user_type"] = Model.user_type;
+    Session["email"] = Model.Email;
+}
+@*<h2>@ViewBag.Title.</h2>*@
+@*<h3>Associate your @ViewBag.LoginProvider account.</h3>*@
+
+@using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    if (!Model.isRegisterd)
+    {
+        <br />
+        <p class="text-info">
+            You have not registered in the website. Please Register to login<br />
+            @Html.ActionLink("Log in", "Login", "Account", new { Area = "" }, htmlAttributes: new { id = "loginLink" })
+        </p>
+    }
+    else
+    {
+        <p class="text-info">
+            You've successfully authenticated with <strong>@ViewBag.LoginProvider</strong>.
+            @*@Html.ActionLink("Go to Home", "Index", "Home", new { area = "" }, new { @class = "btn btn-primary btn-lg" })*@
+        </p>
+    }
+    @*@Html.AntiForgeryToken()
+
+    <h4>Association Form</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <p class="text-info">
+        You've successfully authenticated with <strong>@ViewBag.LoginProvider</strong>.
+        Please enter a user name for this site below and click the Register button to finish
+        logging in.
+    </p>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Register" />
+        </div>
+    </div>
+    
+    if(!Model.isRegisterd)
+    { 
+    <div class="form-horizontal">
+        <h4>PSS_Users</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.first_name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.first_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.first_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.last_name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.last_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.last_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*<div class="col-md-10">
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Email, new {@readonly = "readonly", @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.contact, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.contact, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.contact, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.user_type_id, "user_type_id", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(
+    model => model.UserTypes,
+    Model.UserTypes.Select(h => new SelectListItem
+        {
+            Text = h.type,
+            Value = h.user_type_id.ToString()
+        }),
+    "-- Select --");
+                @Html.ValidationMessageFor(model => model.user_type_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.active, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.active)
+                    @Html.ValidationMessageFor(model => model.active, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    }
+    else
+    {
+        
+        @Html.Action("Index","Home");
+    }
+*@
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

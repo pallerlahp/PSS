@@ -1,0 +1,563 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PSSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PSS_Project_Category">
+          <Key>
+            <PropertyRef Name="proj_category_id" />
+          </Key>
+          <Property Name="proj_category_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category" Type="varchar" MaxLength="100" />
+          <Property Name="active" Type="bit" />
+        </EntityType>
+        <EntityType Name="PSS_Projects">
+          <Key>
+            <PropertyRef Name="project_id" />
+          </Key>
+          <Property Name="project_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="project_title" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="description" Type="text" />
+          <Property Name="proj_category_id" Type="int" />
+          <Property Name="project_status_id" Type="int" />
+          <Property Name="extra_details" Type="text" />
+          <Property Name="sponsor_id" Type="int" />
+          <Property Name="material_budget" Type="varchar" MaxLength="100" />
+          <Property Name="preferred_major" Type="varchar" MaxLength="100" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="project_created_date" Type="datetime" />
+          <Property Name="project_selection_closing_date" Type="datetime" />
+          <Property Name="active" Type="bit" />
+        </EntityType>
+        <EntityType Name="PSS_Sponsor">
+          <Key>
+            <PropertyRef Name="sponsor_id" />
+          </Key>
+          <Property Name="sponsor_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sponsor_name" Type="varchar" MaxLength="100" />
+          <Property Name="active" Type="bit" />
+        </EntityType>
+        <EntityType Name="PSS_Status">
+          <Key>
+            <PropertyRef Name="status_id" />
+          </Key>
+          <Property Name="status_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="type" Type="bit" />
+          <Property Name="active" Type="bit" />
+        </EntityType>
+        <EntityType Name="PSS_Student_Project">
+          <Key>
+            <PropertyRef Name="project_request_id" />
+          </Key>
+          <Property Name="project_request_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="student_id" Type="int" />
+          <Property Name="project_id" Type="int" Nullable="false" />
+          <Property Name="requested_date" Type="date" />
+          <Property Name="project_request_status_id" Type="int" Nullable="false" />
+          <Property Name="document" Type="varbinary(max)" />
+          <Property Name="file_name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PSS_User_Type">
+          <Key>
+            <PropertyRef Name="user_type_id" />
+          </Key>
+          <Property Name="user_type_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="active" Type="bit" />
+        </EntityType>
+        <EntityType Name="PSS_Users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" />
+          <Property Name="last_name" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="contact" Type="varchar" MaxLength="20" />
+          <Property Name="user_type_id" Type="int" />
+          <Property Name="active" Type="bit" />
+        </EntityType>
+        <Association Name="FK_PSS_Projects_PSS_Project_Category">
+          <End Role="PSS_Project_Category" Type="Self.PSS_Project_Category" Multiplicity="0..1" />
+          <End Role="PSS_Projects" Type="Self.PSS_Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PSS_Project_Category">
+              <PropertyRef Name="proj_category_id" />
+            </Principal>
+            <Dependent Role="PSS_Projects">
+              <PropertyRef Name="proj_category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PSS_Projects_PSS_Sponsor">
+          <End Role="PSS_Sponsor" Type="Self.PSS_Sponsor" Multiplicity="0..1" />
+          <End Role="PSS_Projects" Type="Self.PSS_Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PSS_Sponsor">
+              <PropertyRef Name="sponsor_id" />
+            </Principal>
+            <Dependent Role="PSS_Projects">
+              <PropertyRef Name="sponsor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PSS_Projects_PSS_Status">
+          <End Role="PSS_Status" Type="Self.PSS_Status" Multiplicity="0..1" />
+          <End Role="PSS_Projects" Type="Self.PSS_Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PSS_Status">
+              <PropertyRef Name="status_id" />
+            </Principal>
+            <Dependent Role="PSS_Projects">
+              <PropertyRef Name="project_status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PSS_Projects_PSS_Users">
+          <End Role="PSS_Users" Type="Self.PSS_Users" Multiplicity="0..1" />
+          <End Role="PSS_Projects" Type="Self.PSS_Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PSS_Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="PSS_Projects">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PSS_Student_Project_PSS_Projects">
+          <End Role="PSS_Projects" Type="Self.PSS_Projects" Multiplicity="1" />
+          <End Role="PSS_Student_Project" Type="Self.PSS_Student_Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PSS_Projects">
+              <PropertyRef Name="project_id" />
+            </Principal>
+            <Dependent Role="PSS_Student_Project">
+              <PropertyRef Name="project_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PSS_Student_Project_PSS_Status">
+          <End Role="PSS_Status" Type="Self.PSS_Status" Multiplicity="1" />
+          <End Role="PSS_Student_Project" Type="Self.PSS_Student_Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PSS_Status">
+              <PropertyRef Name="status_id" />
+            </Principal>
+            <Dependent Role="PSS_Student_Project">
+              <PropertyRef Name="project_request_status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PSS_Student_Project_PSS_Users">
+          <End Role="PSS_Users" Type="Self.PSS_Users" Multiplicity="0..1" />
+          <End Role="PSS_Student_Project" Type="Self.PSS_Student_Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PSS_Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="PSS_Student_Project">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PSS_Users_PSS_User_Type">
+          <End Role="PSS_User_Type" Type="Self.PSS_User_Type" Multiplicity="0..1" />
+          <End Role="PSS_Users" Type="Self.PSS_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PSS_User_Type">
+              <PropertyRef Name="user_type_id" />
+            </Principal>
+            <Dependent Role="PSS_Users">
+              <PropertyRef Name="user_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PSSModelStoreContainer">
+          <EntitySet Name="PSS_Project_Category" EntityType="Self.PSS_Project_Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PSS_Projects" EntityType="Self.PSS_Projects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PSS_Sponsor" EntityType="Self.PSS_Sponsor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PSS_Status" EntityType="Self.PSS_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PSS_Student_Project" EntityType="Self.PSS_Student_Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PSS_User_Type" EntityType="Self.PSS_User_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PSS_Users" EntityType="Self.PSS_Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PSS_Projects_PSS_Project_Category" Association="Self.FK_PSS_Projects_PSS_Project_Category">
+            <End Role="PSS_Project_Category" EntitySet="PSS_Project_Category" />
+            <End Role="PSS_Projects" EntitySet="PSS_Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PSS_Projects_PSS_Sponsor" Association="Self.FK_PSS_Projects_PSS_Sponsor">
+            <End Role="PSS_Sponsor" EntitySet="PSS_Sponsor" />
+            <End Role="PSS_Projects" EntitySet="PSS_Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PSS_Projects_PSS_Status" Association="Self.FK_PSS_Projects_PSS_Status">
+            <End Role="PSS_Status" EntitySet="PSS_Status" />
+            <End Role="PSS_Projects" EntitySet="PSS_Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PSS_Projects_PSS_Users" Association="Self.FK_PSS_Projects_PSS_Users">
+            <End Role="PSS_Users" EntitySet="PSS_Users" />
+            <End Role="PSS_Projects" EntitySet="PSS_Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PSS_Student_Project_PSS_Projects" Association="Self.FK_PSS_Student_Project_PSS_Projects">
+            <End Role="PSS_Projects" EntitySet="PSS_Projects" />
+            <End Role="PSS_Student_Project" EntitySet="PSS_Student_Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PSS_Student_Project_PSS_Status" Association="Self.FK_PSS_Student_Project_PSS_Status">
+            <End Role="PSS_Status" EntitySet="PSS_Status" />
+            <End Role="PSS_Student_Project" EntitySet="PSS_Student_Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PSS_Student_Project_PSS_Users" Association="Self.FK_PSS_Student_Project_PSS_Users">
+            <End Role="PSS_Users" EntitySet="PSS_Users" />
+            <End Role="PSS_Student_Project" EntitySet="PSS_Student_Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PSS_Users_PSS_User_Type" Association="Self.FK_PSS_Users_PSS_User_Type">
+            <End Role="PSS_User_Type" EntitySet="PSS_User_Type" />
+            <End Role="PSS_Users" EntitySet="PSS_Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PSSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PSS_Project_Category">
+          <Key>
+            <PropertyRef Name="proj_category_id" />
+          </Key>
+          <Property Name="proj_category_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" />
+          <NavigationProperty Name="PSS_Projects" Relationship="PSSModel.FK_PSS_Projects_PSS_Project_Category" FromRole="PSS_Project_Category" ToRole="PSS_Projects" />
+        </EntityType>
+        <EntityType Name="PSS_Status">
+          <Key>
+            <PropertyRef Name="status_id" />
+          </Key>
+          <Property Name="status_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="type" Type="Boolean" />
+          <Property Name="active" Type="Boolean" />
+          <NavigationProperty Name="PSS_Projects" Relationship="PSSModel.FK_PSS_Projects_PSS_Status" FromRole="PSS_Status" ToRole="PSS_Projects" />
+          <NavigationProperty Name="PSS_Student_Project" Relationship="PSSModel.FK_PSS_Student_Project_PSS_Status" FromRole="PSS_Status" ToRole="PSS_Student_Project" />
+        </EntityType>
+        <EntityType Name="PSS_User_Type">
+          <Key>
+            <PropertyRef Name="user_type_id" />
+          </Key>
+          <Property Name="user_type_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="active" Type="Boolean" />
+          <NavigationProperty Name="PSS_Users" Relationship="PSSModel.FK_PSS_Users_PSS_User_Type" FromRole="PSS_User_Type" ToRole="PSS_Users" />
+        </EntityType>
+        <EntityContainer Name="PSSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PSS_Project_Category" EntityType="Self.PSS_Project_Category" />
+          <EntitySet Name="PSS_Status" EntityType="Self.PSS_Status" />
+          <EntitySet Name="PSS_User_Type" EntityType="Self.PSS_User_Type" />
+          <EntitySet Name="PSS_Sponsor" EntityType="PSSModel.PSS_Sponsor" />
+          <EntitySet Name="PSS_Projects" EntityType="PSSModel.PSS_Projects" />
+          <AssociationSet Name="FK_PSS_Projects_PSS_Project_Category" Association="PSSModel.FK_PSS_Projects_PSS_Project_Category">
+            <End Role="PSS_Project_Category" EntitySet="PSS_Project_Category" />
+            <End Role="PSS_Projects" EntitySet="PSS_Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PSS_Projects_PSS_Sponsor" Association="PSSModel.FK_PSS_Projects_PSS_Sponsor">
+            <End Role="PSS_Sponsor" EntitySet="PSS_Sponsor" />
+            <End Role="PSS_Projects" EntitySet="PSS_Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PSS_Projects_PSS_Status" Association="PSSModel.FK_PSS_Projects_PSS_Status">
+            <End Role="PSS_Status" EntitySet="PSS_Status" />
+            <End Role="PSS_Projects" EntitySet="PSS_Projects" />
+          </AssociationSet>
+          <EntitySet Name="PSS_Users" EntityType="PSSModel.PSS_Users" />
+          <AssociationSet Name="FK_PSS_Projects_PSS_Users" Association="PSSModel.FK_PSS_Projects_PSS_Users">
+            <End Role="PSS_Users" EntitySet="PSS_Users" />
+            <End Role="PSS_Projects" EntitySet="PSS_Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PSS_Users_PSS_User_Type" Association="PSSModel.FK_PSS_Users_PSS_User_Type">
+            <End Role="PSS_User_Type" EntitySet="PSS_User_Type" />
+            <End Role="PSS_Users" EntitySet="PSS_Users" />
+          </AssociationSet>
+          <EntitySet Name="PSS_Student_Project" EntityType="PSSModel.PSS_Student_Project" />
+          <AssociationSet Name="FK_PSS_Student_Project_PSS_Projects" Association="PSSModel.FK_PSS_Student_Project_PSS_Projects">
+            <End Role="PSS_Projects" EntitySet="PSS_Projects" />
+            <End Role="PSS_Student_Project" EntitySet="PSS_Student_Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PSS_Student_Project_PSS_Status" Association="PSSModel.FK_PSS_Student_Project_PSS_Status">
+            <End Role="PSS_Status" EntitySet="PSS_Status" />
+            <End Role="PSS_Student_Project" EntitySet="PSS_Student_Project" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PSS_Student_Project_PSS_Users" Association="PSSModel.FK_PSS_Student_Project_PSS_Users">
+            <End Role="PSS_Users" EntitySet="PSS_Users" />
+            <End Role="PSS_Student_Project" EntitySet="PSS_Student_Project" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="PSS_Sponsor">
+          <Key>
+            <PropertyRef Name="sponsor_id" />
+          </Key>
+          <Property Name="sponsor_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sponsor_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" />
+          <NavigationProperty Name="PSS_Projects" Relationship="PSSModel.FK_PSS_Projects_PSS_Sponsor" FromRole="PSS_Sponsor" ToRole="PSS_Projects" />
+        </EntityType>
+        <EntityType Name="PSS_Projects">
+          <Key>
+            <PropertyRef Name="project_id" />
+          </Key>
+          <Property Name="project_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="project_title" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="proj_category_id" Type="Int32" />
+          <Property Name="project_status_id" Type="Int32" />
+          <Property Name="extra_details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="sponsor_id" Type="Int32" />
+          <Property Name="material_budget" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="preferred_major" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="project_created_date" Type="DateTime" Precision="3" />
+          <Property Name="project_selection_closing_date" Type="DateTime" Precision="3" />
+          <Property Name="active" Type="Boolean" />
+          <NavigationProperty Name="PSS_Project_Category" Relationship="PSSModel.FK_PSS_Projects_PSS_Project_Category" FromRole="PSS_Projects" ToRole="PSS_Project_Category" />
+          <NavigationProperty Name="PSS_Sponsor" Relationship="PSSModel.FK_PSS_Projects_PSS_Sponsor" FromRole="PSS_Projects" ToRole="PSS_Sponsor" />
+          <NavigationProperty Name="PSS_Status" Relationship="PSSModel.FK_PSS_Projects_PSS_Status" FromRole="PSS_Projects" ToRole="PSS_Status" />
+          <NavigationProperty Name="PSS_Users" Relationship="PSSModel.FK_PSS_Projects_PSS_Users" FromRole="PSS_Projects" ToRole="PSS_Users" />
+          <NavigationProperty Name="PSS_Student_Project" Relationship="PSSModel.FK_PSS_Student_Project_PSS_Projects" FromRole="PSS_Projects" ToRole="PSS_Student_Project" />
+        </EntityType>
+        <Association Name="FK_PSS_Projects_PSS_Project_Category">
+          <End Type="PSSModel.PSS_Project_Category" Role="PSS_Project_Category" Multiplicity="0..1" />
+          <End Type="PSSModel.PSS_Projects" Role="PSS_Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PSS_Project_Category">
+              <PropertyRef Name="proj_category_id" />
+            </Principal>
+            <Dependent Role="PSS_Projects">
+              <PropertyRef Name="proj_category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PSS_Projects_PSS_Sponsor">
+          <End Type="PSSModel.PSS_Sponsor" Role="PSS_Sponsor" Multiplicity="0..1" />
+          <End Type="PSSModel.PSS_Projects" Role="PSS_Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PSS_Sponsor">
+              <PropertyRef Name="sponsor_id" />
+            </Principal>
+            <Dependent Role="PSS_Projects">
+              <PropertyRef Name="sponsor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PSS_Projects_PSS_Status">
+          <End Type="PSSModel.PSS_Status" Role="PSS_Status" Multiplicity="0..1" />
+          <End Type="PSSModel.PSS_Projects" Role="PSS_Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PSS_Status">
+              <PropertyRef Name="status_id" />
+            </Principal>
+            <Dependent Role="PSS_Projects">
+              <PropertyRef Name="project_status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PSS_Users">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="contact" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="user_type_id" Type="Int32" />
+          <Property Name="active" Type="Boolean" />
+          <NavigationProperty Name="PSS_Projects" Relationship="PSSModel.FK_PSS_Projects_PSS_Users" FromRole="PSS_Users" ToRole="PSS_Projects" />
+          <NavigationProperty Name="PSS_User_Type" Relationship="PSSModel.FK_PSS_Users_PSS_User_Type" FromRole="PSS_Users" ToRole="PSS_User_Type" />
+          <NavigationProperty Name="PSS_Student_Project" Relationship="PSSModel.FK_PSS_Student_Project_PSS_Users" FromRole="PSS_Users" ToRole="PSS_Student_Project" />
+        </EntityType>
+        <Association Name="FK_PSS_Projects_PSS_Users">
+          <End Type="PSSModel.PSS_Users" Role="PSS_Users" Multiplicity="0..1" />
+          <End Type="PSSModel.PSS_Projects" Role="PSS_Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PSS_Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="PSS_Projects">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PSS_Users_PSS_User_Type">
+          <End Type="PSSModel.PSS_User_Type" Role="PSS_User_Type" Multiplicity="0..1" />
+          <End Type="PSSModel.PSS_Users" Role="PSS_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PSS_User_Type">
+              <PropertyRef Name="user_type_id" />
+            </Principal>
+            <Dependent Role="PSS_Users">
+              <PropertyRef Name="user_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PSS_Student_Project">
+          <Key>
+            <PropertyRef Name="project_request_id" />
+          </Key>
+          <Property Name="project_request_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="student_id" Type="Int32" />
+          <Property Name="project_id" Type="Int32" Nullable="false" />
+          <Property Name="requested_date" Type="DateTime" Precision="0" />
+          <Property Name="project_request_status_id" Type="Int32" Nullable="false" />
+          <Property Name="document" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="file_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PSS_Projects" Relationship="PSSModel.FK_PSS_Student_Project_PSS_Projects" FromRole="PSS_Student_Project" ToRole="PSS_Projects" />
+          <NavigationProperty Name="PSS_Status" Relationship="PSSModel.FK_PSS_Student_Project_PSS_Status" FromRole="PSS_Student_Project" ToRole="PSS_Status" />
+          <NavigationProperty Name="PSS_Users" Relationship="PSSModel.FK_PSS_Student_Project_PSS_Users" FromRole="PSS_Student_Project" ToRole="PSS_Users" />
+        </EntityType>
+        <Association Name="FK_PSS_Student_Project_PSS_Projects">
+          <End Type="PSSModel.PSS_Projects" Role="PSS_Projects" Multiplicity="1" />
+          <End Type="PSSModel.PSS_Student_Project" Role="PSS_Student_Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PSS_Projects">
+              <PropertyRef Name="project_id" />
+            </Principal>
+            <Dependent Role="PSS_Student_Project">
+              <PropertyRef Name="project_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PSS_Student_Project_PSS_Status">
+          <End Type="PSSModel.PSS_Status" Role="PSS_Status" Multiplicity="1" />
+          <End Type="PSSModel.PSS_Student_Project" Role="PSS_Student_Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PSS_Status">
+              <PropertyRef Name="status_id" />
+            </Principal>
+            <Dependent Role="PSS_Student_Project">
+              <PropertyRef Name="project_request_status_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PSS_Student_Project_PSS_Users">
+          <End Type="PSSModel.PSS_Users" Role="PSS_Users" Multiplicity="0..1" />
+          <End Type="PSSModel.PSS_Student_Project" Role="PSS_Student_Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PSS_Users">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="PSS_Student_Project">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PSSModelStoreContainer" CdmEntityContainer="PSSEntities">
+          <EntitySetMapping Name="PSS_Project_Category">
+            <EntityTypeMapping TypeName="PSSModel.PSS_Project_Category">
+              <MappingFragment StoreEntitySet="PSS_Project_Category">
+                <ScalarProperty Name="proj_category_id" ColumnName="proj_category_id" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PSS_Status">
+            <EntityTypeMapping TypeName="PSSModel.PSS_Status">
+              <MappingFragment StoreEntitySet="PSS_Status">
+                <ScalarProperty Name="status_id" ColumnName="status_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PSS_User_Type">
+            <EntityTypeMapping TypeName="PSSModel.PSS_User_Type">
+              <MappingFragment StoreEntitySet="PSS_User_Type">
+                <ScalarProperty Name="user_type_id" ColumnName="user_type_id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="active" ColumnName="active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PSS_Sponsor">
+            <EntityTypeMapping TypeName="PSSModel.PSS_Sponsor">
+              <MappingFragment StoreEntitySet="PSS_Sponsor">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="sponsor_name" ColumnName="sponsor_name" />
+                <ScalarProperty Name="sponsor_id" ColumnName="sponsor_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PSS_Projects">
+            <EntityTypeMapping TypeName="PSSModel.PSS_Projects">
+              <MappingFragment StoreEntitySet="PSS_Projects">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="project_selection_closing_date" ColumnName="project_selection_closing_date" />
+                <ScalarProperty Name="project_created_date" ColumnName="project_created_date" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="preferred_major" ColumnName="preferred_major" />
+                <ScalarProperty Name="material_budget" ColumnName="material_budget" />
+                <ScalarProperty Name="sponsor_id" ColumnName="sponsor_id" />
+                <ScalarProperty Name="extra_details" ColumnName="extra_details" />
+                <ScalarProperty Name="project_status_id" ColumnName="project_status_id" />
+                <ScalarProperty Name="proj_category_id" ColumnName="proj_category_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="project_title" ColumnName="project_title" />
+                <ScalarProperty Name="project_id" ColumnName="project_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PSS_Users">
+            <EntityTypeMapping TypeName="PSSModel.PSS_Users">
+              <MappingFragment StoreEntitySet="PSS_Users">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="user_type_id" ColumnName="user_type_id" />
+                <ScalarProperty Name="contact" ColumnName="contact" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PSS_Student_Project">
+            <EntityTypeMapping TypeName="PSSModel.PSS_Student_Project">
+              <MappingFragment StoreEntitySet="PSS_Student_Project">
+                <ScalarProperty Name="file_name" ColumnName="file_name" />
+                <ScalarProperty Name="document" ColumnName="document" />
+                <ScalarProperty Name="project_request_status_id" ColumnName="project_request_status_id" />
+                <ScalarProperty Name="requested_date" ColumnName="requested_date" />
+                <ScalarProperty Name="project_id" ColumnName="project_id" />
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="project_request_id" ColumnName="project_request_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

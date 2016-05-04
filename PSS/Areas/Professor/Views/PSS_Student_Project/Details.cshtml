@@ -1,0 +1,54 @@
+﻿@using System.Web.Mvc.Html
+@model PSS.Models.PSS_Student_Project
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PSS_Student_Project</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.requested_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.requested_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.document)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.document)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PSS_Projects.project_title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PSS_Projects.project_title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PSS_Status.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PSS_Status.status)
+        </dd>
+
+        
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.project_request_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

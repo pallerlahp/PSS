@@ -1,0 +1,74 @@
+﻿@model PSS.Models.PSS_Student_Project
+@{
+    if (Session["user_type"] != null)
+    {
+        ViewBag.user_type = Session["user_type"].ToString();
+    }
+
+}
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.user_type == "Student")
+{
+    <h2>Request for Project</h2>
+}
+@if (ViewBag.user_type == "Professors")
+{
+    <h2>Approve or Reject</h2>
+}
+
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>PSS_Student_Project</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.requested_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.requested_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.document)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.document)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PSS_Projects.project_title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PSS_Projects.project_title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PSS_Status.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PSS_Status.status)
+        </dd>
+
+       
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

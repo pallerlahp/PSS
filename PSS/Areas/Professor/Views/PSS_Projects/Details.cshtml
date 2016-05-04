@@ -1,0 +1,85 @@
+﻿@model PSS.Models.PSS_Projects
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PSS_Projects</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.project_title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.project_title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.extra_details)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.extra_details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sponsor_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sponsor_id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.material_budget)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.material_budget)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.preferred_major)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.preferred_major)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PSS_Project_Category.category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PSS_Project_Category.category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PSS_Status.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PSS_Status.status)
+        </dd>
+
+      
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.project_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

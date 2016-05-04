@@ -1,0 +1,109 @@
+﻿@model IEnumerable<PSS.Models.PSS_Projects>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.project_title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.extra_details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.material_budget)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.preferred_major)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.project_created_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.project_selection_closing_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PSS_Project_Category.category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PSS_Sponsor.sponsor_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PSS_Status.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PSS_Users.first_name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.project_title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.extra_details)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.material_budget)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.preferred_major)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.project_created_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.project_selection_closing_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PSS_Project_Category.category)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PSS_Sponsor.sponsor_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PSS_Status.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PSS_Users.first_name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.project_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.project_id }) |
+            @if (ViewBag.user_type == "Student")
+            {
+                @Html.ActionLink("Details", "Delete", new { id = item.project_id })
+            }
+            @if(ViewBag.user_type=="Professors")
+            {
+                @Html.ActionLink("Details", "Delete", new { id = item.project_id })
+            }
+
+                                                                                                                   e
+        </td>
+    </tr>
+}
+
+</table>

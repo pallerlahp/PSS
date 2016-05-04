@@ -1,0 +1,88 @@
+﻿@using System.Web.Mvc.Html
+@using System.Web.Routing
+@model IEnumerable<PSS.Models.PSS_Student_Project>
+		@{
+            if (Session["user_type"] != null)
+            {
+                ViewBag.user_type = Session["user_type"].ToString();
+            }
+
+        }  
+
+	@{
+		ViewBag.Title = "Index";
+		Layout = "~/Views/Shared/_Layout.cshtml";
+	}
+
+	<h2>Applied Projects</h2>
+<br />
+
+	@*<p>
+		@Html.ActionLink("Create New", "Create")
+	</p>*@
+	<table class="table">
+		<tr>
+			<th>
+				@Html.DisplayName("Project Name")
+			</th>
+			<th>
+				@Html.DisplayName("Requested Date")
+			</th>
+			<th>
+				@Html.DisplayName("File")
+			</th>
+			<th>
+				@Html.DisplayName("Request Status")
+			</th>
+			@*<th>
+				@Html.DisplayNameFor(model => model.PSS_Users.password)
+			</th>*@
+			<th></th>
+		</tr>
+
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.PSS_Projects.project_title)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.requested_date)
+				</td>
+				<td>
+					@*@{
+						string text = string.Empty;
+						if (item.document != null)
+						 {
+							 text =System.Text.Encoding.Default.GetString(item.document);
+						 }
+					}
+					<input type="text" value="@text"/>
+					@*}*@
+					@*<input type="text" value="@System.Convert.ToBase64String(item.document)"/>*@
+					@Html.ActionLink(item.file_name, "Download", new {id = item.project_request_id}, new {target = "_blank"})
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.PSS_Status.status)
+				</td>
+				@*<td>
+					@Html.DisplayFor(modelItem => item.PSS_Users.password)
+				</td>*@
+				<td>
+					@*@Html.ActionLink("Edit", "Edit", new {id = item.project_request_id}) |
+					@Html.ActionLink("Details", "Details", new {id = item.project_request_id}) |*@
+                    @Html.ActionLink("Look for Project Details", "Delete", new { id = item.project_id })
+                    @Html.ActionLink("Look for Request Details", "Edit", new { id = item.project_id })
+					@*@if (ViewBag.user_type == "Student")
+                    {
+                        @Html.ActionLink("Details", "Delete", new { id = item.project_id })
+                    }
+                    @if (ViewBag.user_type == "Professors")
+                    {
+                        @Html.ActionLink("Details", "Delete", new { id = item.project_id })
+                    }*@
+				</td>
+			</tr>
+		}
+
+	</table>

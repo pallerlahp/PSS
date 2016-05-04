@@ -1,0 +1,111 @@
+﻿
+@model IEnumerable<PSS.Models.PSS_Projects>
+
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm("IndexView","PSS_Projects",FormMethod.Post, new {id = "form"}))
+{
+	<p>
+		@Html.ActionLink("Create New", "Create")
+	</p>
+	<table class="table">
+		<tr>
+			<th>
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.project_title)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.description)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.extra_details)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.sponsor_id)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.material_budget)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.preferred_major)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.PSS_Project_Category.category)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.PSS_Status.status)
+			</th>
+
+			<th></th>
+		</tr>
+
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					<input type="checkbox" class="project_id" id="@item.project_id"  />
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.project_title)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.description)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.extra_details)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.sponsor_id)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.material_budget)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.preferred_major)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.PSS_Project_Category.category)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.PSS_Status.status)
+				</td>
+
+				@*<td>
+				@Html.ActionLink("Request", "Edit", new { id = item.project_id }) |
+				@Html.ActionLink("Details", "Details", new { id = item.project_id }) |
+				@Html.ActionLink("Delete", "Delete", new { id = item.project_id })
+			</td>*@
+			</tr>
+		}
+
+	</table>
+
+	<input type="button" id="Submit" name="Submit"/>
+}
+
+<script type="text/javascript">
+
+	$(document).ready(function () {
+
+		$("#Submit").click(function () {
+			var selected = [];
+			$('input.project_id').each(function () {
+				if (this.checked) selected.push(this.id);
+			});
+			
+			$.post("IndexView",$('#form').serialize() + '&ProjectIds=' + selected);
+		});
+	});
+</script>
+
+
+
+
+
+
+

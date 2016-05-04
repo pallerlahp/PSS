@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Student";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    if (Session["user_id"] != null)
+    {
+        ViewBag.IsAuthenticated = true;
+        ViewBag.email = Session["email"].ToString();
+        ViewBag.user_id = Session["user_id"].ToString();
+    }
+    else
+    {
+        ViewBag.IsAuthenticated = false;
+    }
+}
+
+<h2>Student</h2>
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Search for Projects", "Create", "Professor/PSS_Student_Project")</li>
+        <li>@Html.ActionLink("View Applied Projects", "AppliedProjects", "Professor/PSS_Student_Project")</li>      
+    </ul>
+</div>

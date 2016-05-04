@@ -1,0 +1,40 @@
+﻿@model IEnumerable<PSS.Models.PSS_Sponsor>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.sponsor_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.active)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.sponsor_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.active)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.sponsor_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.sponsor_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.sponsor_id })
+        </td>
+    </tr>
+}
+
+</table>

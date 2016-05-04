@@ -1,0 +1,40 @@
+﻿@model IEnumerable<PSS.Models.PSS_User_Type>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>All User Types</h2>
+
+<p>
+    @Html.ActionLink("Create New User Type", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("User Type")
+        </th>
+        <th>
+            @Html.DisplayName("Status")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.active)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.user_type_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.user_type_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.user_type_id })
+        </td>
+    </tr>
+}
+
+</table>

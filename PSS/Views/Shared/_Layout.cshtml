@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    
+    <script type='text/javascript'
+            src='http://jqueryjs.googlecode.com/files/jquery-1.3.2.min.js'>
+    </script>
+    <script type="text/javascript">
+        var imgs = [
+        '../Content/Srikanth.jpg',
+        '../Content/wall1.jpg',
+        '../Content/wall2.jpg'];
+        var cnt = imgs.length;
+
+        $(function () {
+            setInterval(Slider, 3000);
+        });
+
+        function Slider() {
+            $('#imageSlide').fadeOut("slow", function () {
+                $(this).attr('src', imgs[(imgs.length++) % cnt]).fadeIn("slow");
+            });
+        }
+    </script>
+
+
+
+</head>
+<body>
+    @{
+        if (Session["user_type"] != null)
+        {
+            ViewBag.user_type = Session["user_type"].ToString();
+        }
+        
+    }
+    <div class="navbar navbar-inverse" style="background-color:#ecac00">
+        <div class="container">
+            <div class="navbar-header">
+               @Html.ActionLink("Project Selection System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+
+            </div>
+        </div>
+    </div><div class="navbar navbar-inverse navbar-fixed-top">
+              <div class="container" >   
+                  <div class="logo">
+                      <img src="~/Images/univlogo_new.svg" />
+                      <div>
+                           <ul class="nav navbar-nav">
+                          <li>@Html.ActionLink("Home", "Index", "Home", new { Area = "" }, new { })</li>
+                          <li>@Html.ActionLink("About", "About", "Home", new { Area = "" }, new { })</li>
+                          <li>@Html.ActionLink("Contact", "Contact", "Home", new { Area = "" }, new { })</li>
+                         <li>@Html.ActionLink("Admin", "Admin", "Home", new { Area = "" }, new { })</li>
+                         <li>@Html.ActionLink("Student", "Student", "Home", new { Area = "" }, new { })</li>
+                         <li>@Html.ActionLink("Sponsor", "Sponsor", "")</li>
+                       @*    @if(ViewBag.user_type=="Admin"){ <li>@Html.ActionLink("Admin", "Admin", "Home", new { Area = "" }, new { })</li>}
+                          @if(ViewBag.user_type=="Student"){<li>@Html.ActionLink("Student", "Student", "Home", new { Area = "" }, new { })</li>}
+                          @if(ViewBag.user_type=="Professors"){<li>@Html.ActionLink("Sponsor", "Sponsor", "")</li>}*@
+                      </ul>
+                      @Html.Partial("_LoginPartial")
+                      </div>
+                  </div>               
+                  @*<div class="navbar-header" >                                            
+                          
+                   </div>*@
+                  
+              </div>
+    </div>
+    @*<div>
+        <img id="imageSlide" alt="" src="" />
+    </div>*@
+    
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Project Selection System</p>             
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    
+</body>
+</html>

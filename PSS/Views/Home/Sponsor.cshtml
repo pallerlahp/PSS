@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Sponsor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Professor</h2>
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("Create New Project", "Create", "Sponsor/PSS_Projects")</li>
+        <li>@Html.ActionLink("View My Projects", "Index", "Sponsor/PSS_Projects")</li>
+        <li>@Html.ActionLink("View All Projects", "Index", "Sponsor/PSS_Projects")</li>
+        <li>@Html.ActionLink("Approve/Reject Project Request", "AppliedProjects", "Professor/PSS_Student_Project")</li>
+    </ul>
+</div>

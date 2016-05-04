@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@*<link rel="stylesheet"
+      href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">*@
+@*<link rel="stylesheet"
+      href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">*@
+<script src="http://code.jquery.com/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+<p></p>
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+        <li data-target="#carousel-example-generic" data-slide-to="3" class=""></li>
+        <li data-target="#carousel-example-generic" data-slide-to="4" class=""></li>
+        <li data-target="#carousel-example-generic" data-slide-to="5" class=""></li>
+        <li data-target="#carousel-example-generic" data-slide-to="6" class=""></li>
+        <li data-target="#carousel-example-generic" data-slide-to="7" class=""></li>
+        <li data-target="#carousel-example-generic" data-slide-to="8" class=""></li>
+    </ol>
+    <div class="carousel-inner">
+
+        <div class="item">
+            <img src="~/Images/2.jpg">
+        </div>
+        <div class="item">
+            <img src="~/Images/3.jpg">
+        </div>
+        <div class="item active">
+            <img src="~/Images/13.png">
+        </div>
+        <div class="item">
+            <img src="~/Images/7.jpg">
+        </div>
+        <div class="item">
+            <img src="~/Images/8.jpg">
+        </div>
+        <div class="item">
+            <img src="~/Images/9.jpg">
+        </div>
+        <div class="item">
+            <img src="~/Images/12.jpg">
+        </div>
+        <div class="item">
+            <img src="~/Images/11.jpg">
+        </div>
+    </div>
+    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div>
+<p></p>
+<div class="jumbotron">    
+    <h1>One Stop Solution</h1>
+    <h2>to Students & Professors</h2>
+    <p class="lead">Project Selection System(<b>PSS</b>) will help and professors to manage the availability of capstone projects for CIS695. Students can search for the project and concerned professor based on the technology and submit their request for approval. Professor can look into student’s request and he can approve, revise or reject. Professor can also search for students who are appropriate for completing the project based on their academic performance, interested technology etc.</p>    
+    <p>@Html.ActionLink("Know more »", "About", "Home", new { area = "" }, new { @class = "btn btn-primary btn-lg" })</p>
+</div>
+

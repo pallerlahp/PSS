@@ -1,0 +1,35 @@
+﻿@model PSS.Models.PSS_User_Type
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>Details</h2>*@
+
+<div>
+    <h3>User Type Details</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("User Type")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.type)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Status")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.active)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.user_type_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

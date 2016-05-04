@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Admin</h2>
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("User Setup", "Index", "Admin/PSS_Users")</li>
+        <li>@Html.ActionLink("User Type Setup", "Index", "Admin/PSS_User_Type")</li>        
+        <li>@Html.ActionLink("Project Category Setup", "Index", "Admin/PSS_Project_Category")</li>
+        <li>@Html.ActionLink("Sponsor Setup", "Index", "Admin/PSS_Sponsor")</li>
+        <li>@Html.ActionLink("Status Setup", "Index", "Admin/PSS_Status")</li>
+    </ul>
+</div>
